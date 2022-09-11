@@ -34,4 +34,6 @@ public class UserDTO {
 
 	  @JsonFormat(pattern="dd-MM-yyyy")
 	  private Date DOB;
+	  
+	  
 }

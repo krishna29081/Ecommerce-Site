@@ -12,7 +12,7 @@ import com.project.shopping.entity.User;
 @Repository
 public interface ProductRepo extends JpaRepository<Products,Integer> {
 	
-	List<Products> findByUser(User user);
+	List<Products> findAllByUser(User user);
 	List<Products> findByCategories(Categories categories);
 	
 	List<Products> findByproductNameContaining(String name);

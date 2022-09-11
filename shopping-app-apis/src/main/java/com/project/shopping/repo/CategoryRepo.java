@@ -7,5 +7,5 @@ import com.project.shopping.entity.Categories;
 
 @Repository
 public interface CategoryRepo extends JpaRepository<Categories, Integer> {
-  
+
 }

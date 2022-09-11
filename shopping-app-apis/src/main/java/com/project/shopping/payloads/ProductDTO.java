@@ -6,6 +6,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.project.shopping.entity.addToCart;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +15,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class ProductDTO {
 	 private Integer productId;
 	 @NotEmpty
@@ -30,6 +31,7 @@ public class ProductDTO {
 	 private String productImageName;
 	 private CategoryDTO categories;
 	 private UserDTO user;
+	 private addToCart addtocart;
 	 
 		/*
 		 * { "Product_name":"Product1", "Product_price":12, "Product_quantity":10,

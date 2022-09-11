@@ -1,18 +1,17 @@
 package com.project.shopping.payloads;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
-public class addTocartDTO {
-	private int cartId;
-	private Integer quantity;
-	private Integer productId;
-	
-	
+public class CartDto {
+	private List<CartItemDto> cartItems;
+	private double totalCost;
 }

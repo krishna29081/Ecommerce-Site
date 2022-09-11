@@ -16,4 +16,5 @@ public interface ProductService {
 	List<ProductDTO> getProductsByCategory(Integer category_id);
 	
 	List<ProductDTO> searchProducts(String keyword);
+	List<ProductDTO> getAllProducts2();
 }

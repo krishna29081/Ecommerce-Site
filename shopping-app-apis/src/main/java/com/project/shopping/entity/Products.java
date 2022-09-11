@@ -12,15 +12,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-//@ToString
+@ToString
 public class Products {
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,22 +34,23 @@ public class Products {
  private Integer productPrice;
  private Integer productQuantity;
  private String productDescription;
- 
- 
  private String productImageName;
- 
- 
-
 
 
 @ManyToOne
+@JsonIgnore
 @JoinColumn(name = "category_id")
 private Categories categories;
- 
+
 @ManyToOne
- private User user;
- 
+@JsonIgnore
+@JoinColumn(name = "id")
+private User user;
+
+
+@JsonManagedReference
 @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
- private List<addToCart> addtocart = new ArrayList<>(); ;
+@JsonIgnore
+private List<addToCart> addtocart = new ArrayList<>(); 
  
 }

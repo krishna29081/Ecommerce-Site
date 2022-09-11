@@ -21,4 +21,7 @@ private String categoryTitle;
 
 @NotEmpty
 private String categoryDescrip;
+
+//List<Products> product;
+
 }

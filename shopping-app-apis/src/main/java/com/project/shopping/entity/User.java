@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,9 +35,11 @@ public class User {
   private Date DOB;
   
 
-@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  private List<Products> product = new ArrayList<>();
+
+
+@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+private List<Products> product = new ArrayList<>();
   
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-  private List<addToCart> addtocart = new ArrayList<>(); ;
+@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+private List<addToCart> addtocart = new ArrayList<>(); ;
 }

@@ -80,6 +80,13 @@ public class ProductController {
 		PostResponse productDto= productservce.getAllProducts(pageNumber,pageSize,sortBy,sortDir);
 		return new ResponseEntity<>(productDto,HttpStatus.OK);
 	}
+	@GetMapping("/allproducts")
+	public ResponseEntity<List<ProductDTO>> getAllProduct()
+	{
+				List<ProductDTO> productDto= productservce.getAllProducts2();
+				return new ResponseEntity<>(productDto,HttpStatus.OK);
+	}
+	
 	
 	@GetMapping("/products/{productId}")
 	public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer productId)

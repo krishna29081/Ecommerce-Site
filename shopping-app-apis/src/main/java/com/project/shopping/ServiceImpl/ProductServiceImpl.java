@@ -24,6 +24,9 @@ import com.project.shopping.repo.ProductRepo;
 import com.project.shopping.repo.UserRepo;
 import com.project.shopping.service.ProductService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
@@ -46,6 +49,7 @@ public class ProductServiceImpl implements ProductService {
 		System.out.println("\n\nproduct " + user.toString());
 		Categories category = categoryrepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category","id", categoryId));
 		System.out.println("\n\nproduct " + category.toString());
+		log.info("before model mapper productDTO :- {}", productDTO.getProductName());;
 		Products product = modelmapper.map(productDTO, Products.class);
 		
 //		System.out.println("product " + product.toString());
@@ -65,11 +69,10 @@ public class ProductServiceImpl implements ProductService {
 		Products product = productrepo.findById(product_id).orElseThrow(() -> new ResourceNotFoundException("User", "id", product_id));
 		Products newProduct = modelmapper.map(product, Products.class);
 		newProduct.setProductImageName(productDTO.getProductImageName());
-		newProduct.setProductDescription(productDTO.getProductDescription());
-		newProduct.setProductId(productDTO.getProductId());
-		newProduct.setProductId(productDTO.getProductId());
-		newProduct.setProductId(productDTO.getProductId());
-		
+		newProduct.setProductDescription(productDTO.getProductDescription());		
+		newProduct.setProductName(productDTO.getProductName());
+		newProduct.setProductPrice(productDTO.getProductPrice());
+		newProduct.setProductQuantity(productDTO.getProductQuantity());
 		productrepo.save(newProduct);
 		
 		return modelmapper.map(newProduct, ProductDTO.class);
@@ -110,16 +113,19 @@ public class ProductServiceImpl implements ProductService {
 		
 		PostResponse postResponse = new PostResponse();
 		
-		postResponse.setProductdetails(listOfProductsDTO);
+		postResponse.setProductdetails(listOfProductsDTO);;
 		postResponse.setPageNumber(listOfProducts.getNumber());
 		postResponse.setPageSize(listOfProducts.getSize());
 		postResponse.setTotalElements(listOfProducts.getTotalElements());
 		postResponse.setTotalPages(listOfProducts.getTotalElements());
 		postResponse.setLastPage(listOfProducts.isLast());
-		
-		
+			
 		return postResponse;
 	}
+	
+	
+	
+	
 
 	@Override
 	public ProductDTO getProductById(Integer id) {
@@ -131,7 +137,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDTO> getProductsByUser(Integer userId) {
 		User user = userrepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id",userId) );
 		System.out.println("\n\nInside impl category found :- " + user.getId());
-		List<Products> products = productrepo.findByUser(user);
+		List<Products> products = productrepo.findAllByUser(user);
+		log.info("products after the function :-",products.get(1));
 		List<ProductDTO> productsDTO = products.stream().map((product) -> modelmapper.map(product, ProductDTO.class)).collect(Collectors.toList());	
 		return productsDTO;
 		}
@@ -156,6 +163,14 @@ public class ProductServiceImpl implements ProductService {
 		List<Products> products =		productrepo.findByproductNameContaining(keyword);
 		List<ProductDTO> listOfProductsDTO = products.stream().map(product -> modelmapper.map(product, ProductDTO.class)).collect(Collectors.toList());
 		return listOfProductsDTO;
+	}
+
+	@Override
+	public List<ProductDTO> getAllProducts2() {
+		List<Products> findAll = this.productrepo.findAll();
+		log.info("");
+		List<ProductDTO> userDTO = findAll.stream().map(product -> modelmapper.map(product,ProductDTO.class)).collect(Collectors.toList());
+		return userDTO;
 	}
 
 }
