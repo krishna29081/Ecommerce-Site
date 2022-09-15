@@ -35,7 +35,12 @@ import lombok.Setter;
 @Setter
 //@ToString
 public class User implements UserDetails {
-  @Id
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+@Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
   

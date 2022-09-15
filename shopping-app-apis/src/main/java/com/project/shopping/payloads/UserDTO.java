@@ -1,6 +1,8 @@
 package com.project.shopping.payloads;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -27,11 +29,13 @@ public class UserDTO {
 	  
 	  @NotEmpty
 	  @Size(min =5, max = 16, message = "Pasword must be greater than 5 and smaller than 16")
-	  private String userPassword;
+	  private String password;
 	  
 	  @NotEmpty
 	  private String userAddress;
 
+	  private Set<RoleDto> roles = new HashSet<>();
+	  
 	  @JsonFormat(pattern="dd-MM-yyyy")
 	  private Date DOB;
 	  

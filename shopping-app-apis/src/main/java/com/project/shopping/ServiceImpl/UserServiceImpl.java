@@ -5,10 +5,14 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.shopping.config.AppConstants;
+import com.project.shopping.entity.Role;
 import com.project.shopping.entity.User;
 import com.project.shopping.payloads.UserDTO;
+import com.project.shopping.repo.Rolerepo;
 import com.project.shopping.repo.UserRepo;
 import com.project.shopping.service.UserService;
 import com.project.shopping.exceptions.*;
@@ -16,11 +20,16 @@ import com.project.shopping.exceptions.*;
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
-	UserRepo userrepo;
+	private UserRepo userrepo;
 	
 	@Autowired
-	ModelMapper modelmapper;
+	private ModelMapper modelmapper;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private Rolerepo rolerepo;
 	
 	@Override
 	public UserDTO createUser(UserDTO userDTO) {
@@ -38,7 +47,7 @@ public class UserServiceImpl implements UserService {
 		user.setName(userDTO.getName());
 		user.setUserAddress(userDTO.getUserAddress());
 		user.setUseremailId(userDTO.getUseremailId());
-		user.setPassword(userDTO.getUserPassword());
+		user.setPassword(userDTO.getPassword());
 	User updatedUser = userrepo.save(user);
 	 
 	return userToDto(updatedUser) ;
@@ -90,6 +99,20 @@ public class UserServiceImpl implements UserService {
 		UserDTO userDTO= this.modelmapper.map(user, UserDTO.class);
 		return userDTO;
 	
+	}
+
+	@Override
+	public UserDTO registerUser(UserDTO userDto) {
+		User user = modelmapper.map(userDto,User.class);
+		//encoded password
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		//roles
+		Role roleOfuser = rolerepo.findById(AppConstants.NORMAL_USER).get();
+		
+		user.getRoles().add(roleOfuser);
+		User newUser = userrepo.save(user);
+		
+		return modelmapper.map(newUser, UserDTO.class);
 	}
 
 }

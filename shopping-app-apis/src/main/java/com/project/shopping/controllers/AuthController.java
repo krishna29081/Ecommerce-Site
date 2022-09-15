@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.shopping.Security.JwtTokenHelper;
+import com.project.shopping.exceptions.ApiException;
 import com.project.shopping.payloads.JwtAuthRequest;
 import com.project.shopping.payloads.JwtAuthResponse;
+import com.project.shopping.payloads.UserDTO;
+import com.project.shopping.service.UserService;
 
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,9 @@ public class AuthController {
 	
 	@Autowired
 	private UserDetailsService userdetailservice;
+	
+	@Autowired
+	private UserService userservice;
 	
 	@Autowired
 	private AuthenticationManager authenticationmanager;
@@ -55,7 +61,15 @@ public class AuthController {
 		catch(BadCredentialsException b)
 		{
 			System.out.println("Invalid Details");
-			throw new Exception("Invalid username or password");
+			throw new ApiException("Invalid username or password");
 		}
+	}
+	
+	//register new user APi
+	@PostMapping("/register")
+	public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userdto)
+	{
+		UserDTO registeredUser = userservice.registerUser(userdto);
+		return new ResponseEntity<>(registeredUser,HttpStatus.CREATED);
 	}
 }
