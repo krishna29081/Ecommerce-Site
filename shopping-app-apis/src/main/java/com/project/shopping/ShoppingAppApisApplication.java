@@ -8,7 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.project.shopping.config.AppConstants;
 import com.project.shopping.entity.Role;
@@ -17,8 +16,8 @@ import com.project.shopping.repo.Rolerepo;
 @SpringBootApplication
 public class ShoppingAppApisApplication implements CommandLineRunner {
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private Rolerepo rolerepo;
