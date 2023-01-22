@@ -138,7 +138,7 @@ public class ProductServiceImpl implements ProductService {
 		User user = userrepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id",userId) );
 		System.out.println("\n\nInside impl category found :- " + user.getId());
 		List<Products> products = productrepo.findAllByUser(user);
-		log.info("products after the function :-",products.get(1));
+		
 		List<ProductDTO> productsDTO = products.stream().map((product) -> modelmapper.map(product, ProductDTO.class)).collect(Collectors.toList());	
 		return productsDTO;
 		}

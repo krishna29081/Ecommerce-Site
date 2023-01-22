@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Columns;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,10 +47,14 @@ public class User implements UserDetails {
   private int id;
   
   private String name;
+  
+  @Column(unique= true)
   private String useremailId;
+  
+  
   private String password;
   private String userAddress;
-  @JsonFormat(pattern="dd-MM-yyyy")
+  @JsonFormat(pattern="yyyy-MM-dd")
   private Date DOB;
   
 
