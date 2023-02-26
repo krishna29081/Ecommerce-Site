@@ -6,10 +6,12 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class OrderRequest {
 	private String email;
 	private String address;
@@ -20,5 +22,6 @@ public class OrderRequest {
 	private String state;
 	private Integer totalAmount;
 	private List<ProductDTO> cartItems = new ArrayList<>();
+	private List<Integer> peritemquantity = new ArrayList<>();
 
 }

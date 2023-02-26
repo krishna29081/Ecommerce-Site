@@ -11,10 +11,12 @@ import com.project.shopping.entity.addToCart;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class ProductDTO {
 	 private Integer productId;
 	 @NotEmpty

@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.project.shopping.payloads.CategoryDTO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,5 +58,10 @@ private User user;
 @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 @JsonIgnore
 private List<addToCart> addtocart = new ArrayList<>(); 
+
+
+@OneToOne(cascade = CascadeType.MERGE)
+private OrderItems orderItem;
+
  
 }

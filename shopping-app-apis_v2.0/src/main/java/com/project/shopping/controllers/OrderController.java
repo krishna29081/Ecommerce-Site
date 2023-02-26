@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.shopping.entity.Orders;
 import com.project.shopping.payloads.OrderRequest;
 import com.project.shopping.payloads.orderResponse;
 import com.project.shopping.service.OrderService;
@@ -19,9 +20,9 @@ public class OrderController {
 	OrderService orderservice;
 	
 	@PostMapping("/createorder")
-	public ResponseEntity<orderResponse> createOrder(@RequestBody OrderRequest orderrequest)
+	public ResponseEntity<Orders> createOrder(@RequestBody OrderRequest orderrequest)
 	{	
-		orderResponse orderreponse = orderservice.orderCreate(orderrequest);
+		Orders orderreponse = orderservice.orderCreate(orderrequest);
 		return new ResponseEntity<>(orderreponse,HttpStatus.CREATED);
 	}
 	
