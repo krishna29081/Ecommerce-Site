@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 		user.setUseremailId(userDTO.getUseremailId());
 		user.setPassword(userDTO.getPassword());
 	User updatedUser = userrepo.save(user);
-	 
+
 	return userToDto(updatedUser) ;
 	}
 

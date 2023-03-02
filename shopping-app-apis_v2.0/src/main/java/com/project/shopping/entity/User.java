@@ -52,6 +52,7 @@ public class User implements UserDetails {
   private String useremailId;
   
   private String mobileno;
+  
   private String password;
   private String userAddress;
   @JsonFormat(pattern="yyyy-MM-dd")

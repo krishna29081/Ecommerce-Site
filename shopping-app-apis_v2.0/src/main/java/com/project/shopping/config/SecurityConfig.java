@@ -56,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	.configurationSource(configurationSource())
 	.and()
 	.authorizeHttpRequests()
+	.antMatchers(HttpMethod.DELETE).permitAll()
 	.antMatchers(HttpMethod.GET).permitAll()
 	.antMatchers(PUBLIC_URLS).permitAll()
 	.antMatchers(HttpMethod.POST).permitAll()

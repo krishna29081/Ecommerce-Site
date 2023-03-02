@@ -44,7 +44,7 @@ public class orderServiceImpl implements OrderService {
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 		Orders order = new Orders();
 		order.setUser(userID1);
-		order.setOrderAmt(request.getTotalAmount());
+//		order.setOrderAmt(request.getTotalAmount());
 		order.setCartTotalQuantity(request.getCartTotalquantity());
 		order.setBillingAdrress(request.getAddress());
 		List<ProductDTO> cartItems = request.getCartItems()
@@ -52,10 +52,15 @@ public class orderServiceImpl implements OrderService {
 				.map(cartItem -> modelmapper.map(cartItem, ProductDTO.class))
 				.collect(Collectors.toList());
 		
+		
+		
+		
 		List<Integer> perItemQuantity = request.getPeritemquantity()
 				.stream()
 				.collect(Collectors.toList());
 		log.info(cartItems.toString());
+		
+		
 		
 		
 		List<OrderItems> orderitem =  cartItems.stream().map((cartItem)-> {
@@ -73,13 +78,22 @@ public class orderServiceImpl implements OrderService {
 //			return orderItem;
 //
 //	 }).collect(Collectors.toList());
-		
+		Integer Totalamount=0;
 		order.setOrderCreated(new Date());
+		for(int i=0;i<orderitem.size();i++)
+		{
+			Totalamount=Totalamount+ (perItemQuantity.get(i)*(orderitem.get(i).getProduct().getProductPrice()));
+			log.info("\n\n Totalamount"+Totalamount);
+		}
+		
+		order.setOrderAmt(Totalamount);
 		orderrepo.save(order);
 		for(int i=0; i<orderitem.size();i++)
 		{	orderitem.get(i).setProductCartQuantity(perItemQuantity.get(i));
 			orderItemsrepo.save(orderitem.get(i));
 		}
+		
+		
 //		
 		
 //		

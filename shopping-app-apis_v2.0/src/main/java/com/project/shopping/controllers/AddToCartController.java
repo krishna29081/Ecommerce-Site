@@ -48,6 +48,19 @@ public class AddToCartController {
 		return new ResponseEntity<>(cartdto,HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/user/{userId}/product/{productId}/{quantity}")
+	public ResponseEntity<addTocartDTO> decreaseFromCart(
+			@PathVariable Integer userId,
+			@PathVariable Integer quantity,
+			@PathVariable Integer productId
+			)
+	{  
+		addTocartDTO addProduct = addtocartservice.decreaseFromCart(productId, quantity, userId);
+		 return new ResponseEntity<>(addProduct,HttpStatus.OK);
+	}
+	
+	
+	
 	@DeleteMapping("/delete/cartid/{cartId}/userId/{userId}")
 	public ResponseEntity<ApiResponse> deleteCart(
 			@PathVariable Integer cartId,

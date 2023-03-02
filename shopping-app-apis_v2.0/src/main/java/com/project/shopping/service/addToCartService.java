@@ -12,6 +12,7 @@ public interface addToCartService {
 		List<addTocartDTO> findByCustomer(Integer customerId);
 		CartDto listCartItems(Integer userId);
 		void deleteCartById(Integer cartId, Integer userId);
+		addTocartDTO decreaseFromCart(Integer productId, Integer quantity, Integer userId);
 		
 		
 }

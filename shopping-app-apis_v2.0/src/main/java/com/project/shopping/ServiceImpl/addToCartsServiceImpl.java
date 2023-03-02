@@ -116,6 +116,31 @@ public class addToCartsServiceImpl implements addToCartService {
 		
 	}
 
+	@Override
+	public addTocartDTO decreaseFromCart(Integer productId, Integer quantity, Integer userId) {
+		Products product = productrepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product","id", productId));
+		User userID1 = userrepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Product","id", userId));
+		addToCart findByUserAndProducts = cartrepo.findByUserAndProduct(userID1, product);
+		log.info("\n\n Inside the function");
+		if(findByUserAndProducts.getQuantity()>1)
+		{	log.info("\n\n "+ findByUserAndProducts.getQuantity());
+			findByUserAndProducts.setQuantity((findByUserAndProducts.getQuantity()-1));
+			log.info("\n\n" + findByUserAndProducts.getQuantity());
+		}else {
+			log.info("\n\n Inside the delete");
+		 deleteProductFromCart(findByUserAndProducts);
+		}
+		log.info(findByUserAndProducts.toString());
+		cartrepo.save(findByUserAndProducts);
+		addTocartDTO map = modelmapper.map(findByUserAndProducts, addTocartDTO.class);
+		
+		return map;
+	}
+
+	private void deleteProductFromCart(addToCart findByUserAndProducts) {
+		cartrepo.delete(findByUserAndProducts);		
+	}
+
 
 	
 //	private addTocartDTO DTOtoUser(addToCart userDTO)

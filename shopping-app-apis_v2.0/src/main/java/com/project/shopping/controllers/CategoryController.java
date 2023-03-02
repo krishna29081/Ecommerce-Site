@@ -47,6 +47,7 @@ public class CategoryController {
 		categoryservice.deleteCategory(id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("User deleted Succesfully",true), HttpStatus.OK);
 	}
+	
 	//find all
 	@GetMapping("/")
 	public ResponseEntity<List<CategoryDTO>> findallCategory()
@@ -55,7 +56,6 @@ public class CategoryController {
 	}
 	
 	//find by id
-	
 	@GetMapping("/{id}")
 	public ResponseEntity<CategoryDTO> findById(@PathVariable Integer id)
 	{

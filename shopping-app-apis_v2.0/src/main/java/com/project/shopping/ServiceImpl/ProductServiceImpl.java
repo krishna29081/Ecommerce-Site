@@ -163,7 +163,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTO> searchProducts(String keyword) {
-		List<Products> products =		productrepo.findByproductNameContaining(keyword);
+		List<Products> products = productrepo.findByproductNameContaining(keyword);
 		List<ProductDTO> listOfProductsDTO = products.stream().map(product -> modelmapper.map(product, ProductDTO.class)).collect(Collectors.toList());
 		return listOfProductsDTO;
 	}
